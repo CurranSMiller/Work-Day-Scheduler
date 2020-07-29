@@ -9,8 +9,12 @@ $(document).ready(function() {
     console.log('value:', value);
     console.log('time:', time);
 
+    function getData () {
+      $("textarea").text(localStorage.getItem(value));
+    };
+
     // save the value in localStorage as time
-    
+    localStorage.setItem(value, time);
   });
 
   function hourUpdater() {
@@ -21,19 +25,19 @@ $(document).ready(function() {
     // loop over time blocks
     $(".time-block").each(function() {
       var blockHour = parseInt($(this).attr("id").split("-")[1]);
+      var textArea = $("textarea");
 
       console.log("block hour:", blockHour);
 
-      // check if we've moved past this time
-      
-      // if the current hour is greater than the block hour
-      // then add class "past"
+   
+      if (currentHour > blockHour) {
+        $("this").addClass('past');
+      } else if (currentHour === blockHour) {
+        $("this").addClass('present');
+      } else {
+        $(".this").addClass('future');
+      }
 
-      // if they are equal
-      // then remove class "past" and add class "present"
-
-      // else
-      // remove class "past", remove class "present", add class "future"
       
     });
   }
@@ -42,6 +46,7 @@ $(document).ready(function() {
 
   // set up interval to check if current time needs to be updated
   // which means execute hourUpdater function every 15 seconds
+  setInterval(hourUpdater(), 15000);
 
   // load any saved data from localStorage
   
